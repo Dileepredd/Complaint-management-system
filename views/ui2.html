@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCA</title>
+    <style>
+        *{
+            /* border:2px solid black; */
+            box-sizing: border-box;
+        }
+        .container{
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            top:0vh;
+            left:0vw;
+            border:2px solid red;
+            margin: 0px;
+            padding : 0px;
+            flex-direction:column;
+        }
+        .content{
+            border:2px solid black;
+            width: 100%;
+            height: 75%;
+            position: relative;
+        }
+        .content-item{
+            position:absolute;
+            border:2px solid black;
+            width:70%;
+            height:80%;
+            margin:0px;
+            top:10%;
+            bottom:10%;
+            left:10%;
+            background-color: aqua;
+            z-index: 3;
+            border-radius: 5%;
+        }
+        .content-item:nth-child(2){
+            top : 12%;
+            left : 15%;
+            border: 2px solid black;
+            background-color:blue;
+            z-index: 2;
+        }
+        .content-item:nth-child(3){
+            top:14%;
+            left : 20%;
+            border: 2px solid black;
+            background-color: blueviolet;
+            z-index: 1;
+        }
+        .category{
+            border: 2px solid black;
+            width:100%;
+            height: 25%;
+        }
+        .category-item{
+            height: 100%;
+            width: 20%;
+            border:2px solid black;
+        }
+    </style>
+</head>
+<body class="container">
+    <!-- <div class="list"></div> -->
+    <!-- <div class="container1"> -->
+        <div class="content">
+            <div class="content-item" draggable="true"></div>
+            <div class="content-item" draggable="true"></div>
+            <div class="content-item" draggable="true"></div>
+        </div>
+        <div class="category">
+            <div class="category-item"></div>
+        </div>
+    <!-- </div> -->
+</body>
+</html>

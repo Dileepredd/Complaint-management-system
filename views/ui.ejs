@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCA</title>
+    <style>
+        *{
+            /* border:2px solid black; */
+            box-sizing: border-box;
+        }
+        .list{
+            display: block;
+            height:100%;
+            width: 20%;
+            margin: 0px;
+            padding: 0px;
+            overflow-y: scroll;
+            border: 2px solid black;
+        }
+        .container{
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            top:0vh;
+            left:0vw;
+            border:2px solid red;
+            margin: 0px;
+            padding : 0px;
+        }
+        .container1{
+            border:2px solid black;
+            width: 80%;
+            height:100%;
+        }
+        .content{
+            border:2px solid black;
+            width: 100%;
+            height: 75%;
+            position: relative;
+            background-color: blanchedalmond;
+        }
+        .content-item{
+            position:absolute;
+            border:2px solid black;
+            width:70%;
+            height:80%;
+            margin:0px;
+            border-radius: 5%;
+            background-color:white;
+            transition-property: all;
+            transition-duration: 1s;
+            transition-timing-function:ease-in;
+            display: flex;
+            justify-content: space-around;
+            align-content: space-around;
+        }
+        .content-item:nth-of-type(1){
+            top:16%;
+            left:8%;
+            z-index: 5;
+        }
+        .content-item:nth-of-type(2){
+            top:13%;
+            left:10%;
+            z-index: 4;
+        }
+        .content-item:nth-of-type(3){
+            top:10%;
+            left: 12%;
+            z-index: 3;
+        }
+        .content-item:nth-of-type(4){
+            top : 7%;
+            left:14%;
+            z-index : 2;
+        }
+        .content-item:nth-of-type(5){
+            top:4%;
+            left: 16%;
+            z-index : 1;
+        }
+        .category{
+            border: 2px solid black;
+            width:100%;
+            height: 25%;
+            display: flex;
+        }
+        .category-item{
+            width:20%;
+            height:100%;
+            border:2px solid black;
+            margin: 0px;
+            position: relative;
+            background-color:azure;
+            display: flex;
+            z-index: 2;
+            cursor : pointer;
+        }
+        .list-item{
+            width:100%;
+            border:2px solid black;
+            height : 3rem;
+            display: flex;
+            z-index : 2;
+        }
+        .dep{
+            width:100%;
+            height:fit-content;
+            color:black;
+            z-index : 1;
+            border: 2px solid black;
+            margin:0px;
+            text-align: center;
+            justify-self: center;
+            align-self: center;
+            font-size: larger;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+        }
+        .block{
+            border-radius: 10%;
+            cursor: pointer;
+        }
+        .loading{
+            border-radius: 10%;
+        }
+    </style>
+</head>
+<body class="container">
+    <div class="list">
+        <div class="list-item block" onclick='loadcomplaintb("http://localhost:4000/Block/BlockA/complaint/next/")'><p class="dep block">Block A</p></div>
+        <div class="list-item block" onclick='loadcomplaintb("http://localhost:4000/Block/BlockB/complaint/next/")'><p class="dep block">Block B</p></div>
+        <div class="list-item block" onclick='loadcomplaintb("http://localhost:4000/Block/BlockC/complaint/next/")'><p class="dep block">Block C</p></div>
+        <div class="list-item block" onclick='loadcomplaintb("http://localhost:4000/Block/BlockD/complaint/next/")'><p class="dep block">Block D</p></div>
+        <div class="list-item block" onclick='loadcomplaintb("http://localhost:4000/Block/BlockE/complaint/next/")'><p class="dep block">Block E</p></div>
+        <div class="list-item block" onclick='loadcomplaintb("http://localhost:4000/Block/BlockF/complaint/next/")'><p class="dep block">Block F</p></div>
+    </div>
+    <div class="container1">
+        <div class="content">
+            <div class="content-item" id="first">click a block to view its compliant messages</div>
+        </div>
+        <div class="category">
+            <div class="category-item" id="dep1" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep1"><p class="dep">Engineering Unit</p></div>
+            <div class="category-item" id="dep2" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep2"><p class="dep">Electrical Department</p></div>
+            <div class="category-item" id="dep3" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep3"><p class="dep">Dep3</p></div>
+            <div class="category-item" id="dep4" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep4"><p class="dep">Dep4</p></div>
+            <div class="category-item" id="dep5" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep5"><p class="dep">Dep5</p></div>
+            <div class="category-item" id="dep6" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep6"><p class="dep">Dep6</p></div>
+            <div class="category-item" id="delete" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="Deleted"><p class="dep block">Delete</p></div>
+        </div>
+    </div>
+    <script>
+        var content = document.getElementsByClassName("content")[0];
+        function getnewnode(){
+            var newnode = document.createElement("div");
+            newnode.classList.add("content-item");
+            newnode.innerHTML = '<img src="./gif/loading.gif" />';
+            return newnode;
+        }
+        function loadcomplaintb(url){
+            loadcomplaint(url);
+        }
+        async function loadcomplaint(url)
+        {
+            content.innerHTML = "";
+            var node1 = getnewnode();
+            var node2 = getnewnode();
+            var node3 = getnewnode();
+            var node4 = getnewnode();
+            var node5 = getnewnode();
+            // for(i=0;i<5;i++){
+            setTimeout(()=>{content.appendChild(node1);getnewcomplaint(node1,url);},0);
+            setTimeout(()=>{content.appendChild(node2);getnewcomplaint(node2,url);},50);
+            setTimeout(()=>{content.appendChild(node3);getnewcomplaint(node3,url);},100);
+            setTimeout(()=>{content.appendChild(node4);getnewcomplaint(node4,url);},150);
+            setTimeout(()=>{content.appendChild(node5);getnewcomplaint(node5,url);},200);
+            // }
+        }
+        function allowdrop(ev)
+        {
+            ev.preventDefault();
+        }
+        function drop(ev,el)
+        {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var move = document.getElementById(data);
+            move.removeAttribute("ondragstart");
+            move.removeAttribute("draggable");
+            var newnode = move.cloneNode(false);
+            el.appendChild(move);
+            setTimeout(()=>{el.removeChild(move);classificationof(move,el);},1000);
+            if(content.firstChild.id !== "null")
+            {
+                n1.setAttribute("ondragstart","drag(event)");
+                n1.setAttribute("draggable","true");
+            }
+            setTimeout(()=>{
+                getnewcomplaint(newnode,url);
+            },1000);
+        }
+        function classificationof(complaint,department,url)
+        {
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200)
+                {
+                    console.log(complaint.id," will be forwarded to ",department.id);
+                }
+            }
+            var url = "http://localhost:4000/complaint/"+complaint.id+"/department/"+department.id;
+            xml.open("GET",url);
+            xml.send();
+        }
+        async function getnewcomplaint(newnode,url)
+        {
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = async function(){
+                if(this.readyState == 4 && this.status == 200){
+                    var complaint = await JSON.parse(this.responseText);
+                    if(complaint.status !== "null")
+                    {
+                        newnode.innerHTML = complaint.html;
+                        newnode.setAttribute("id",complaint.id);
+                        if(content.firstChild === newnode){
+                            newnode.setAttribute("draggable","true");
+                            newnode.setAttribute("ondragstart","drag(event)")
+                        }
+                    }
+                    else
+                    {
+                        if(content.firstChild === newnode || 
+                            newnode.previousSibling.id !== "null"){
+                            newnode.innerHTML = "<p>what the heck, everything is alright</p>";
+                            newnode.setAttribute("id","null");
+                            content.appendChild(newnode);
+                        }
+                        else{
+                            content.removeChild(newnode);
+                        }
+                    }
+                }
+            }
+            xml.open("GET",url,true);
+            xml.send();
+        }
+        function drag(ev)
+        {
+            ev.dataTransfer.setData("text",ev.target.id);
+        }
+    </script>
+</body>
+</html>

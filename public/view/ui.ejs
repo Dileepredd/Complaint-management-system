@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCA</title>
+    <style>
+        *{
+            /* border:2px solid black; */
+            box-sizing: border-box;
+        }
+        .list{
+            display: block;
+            /* position: absolute; */
+            height:100%;
+            width: 20%;
+            margin: 0px;
+            padding: 0px;
+            /* top:0vh; */
+            border: 2px solid black;
+            /* left:0vw; */
+        }
+        .container{
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            top:0vh;
+            left:0vw;
+            border:2px solid red;
+            margin: 0px;
+            padding : 0px;
+        }
+        .container1{
+            border:2px solid black;
+            width: 80%;
+            height:100%;
+        }
+        .content{
+            border:2px solid black;
+            width: 100%;
+            height: 75%;
+            position: relative;
+            background-color: blanchedalmond;
+        }
+        .content-item{
+            position:absolute;
+            border:2px solid black;
+            width:70%;
+            height:80%;
+            margin:0px;
+            left:10%;
+            border-radius: 5%;
+            background-color: aqua;
+        }
+        .content-item:nth-of-type(1){
+            top:6%;
+            z-index: 1;
+        }
+        .content-item:nth-of-type(2){
+            top:8%;
+            z-index: 2;
+        }
+        .content-item:nth-of-type(3){
+            top:10%;
+            z-index: 3;
+        }
+        .content-item:nth-of-type(4){
+            top : 12%;
+            z-index : 4;
+        }
+        .content-item:nth-of-type(5){
+            top:14%;
+            z-index : 5;
+        }
+        .category{
+            border: 2px solid black;
+            width:100%;
+            height: 25%;
+            /* overflow-y: hidden;
+            overflow-x: scroll; */
+            /* display: grid;
+            grid-template-rows: 100%;
+            grid-template-columns: repeat(5,20%); */
+            display: flex;
+        }
+        .category-item{
+            width:20%;
+            height:100%;
+            border:2px solid black;
+            margin: 0px;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="container">
+    <div class="list"></div>
+    <div class="container1">
+        <div class="content">
+            <div class="content-item" id="first" draggable="true"></div>
+            <div class="content-item" id="second" draggable="true"></div>
+            <div class="content-item" id="third" draggable="true"></div>
+            <div class="content-item" id="fourth" draggable="true"></div>
+            <div class="content-item" id="fifth" ondragstart="drag(event)" draggable="true"></div>
+        </div>
+        <div class="category">
+            <div class="category-item" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep1"><p>dep1</p></div>
+            <div class="category-item" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep2">dep2</div>
+            <div class="category-item" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep3">dep3</div>
+            <div class="category-item" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep4">dep4</div>
+            <div class="category-item" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep5">dep5</div>
+            <div class="category-item" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep5">dep5</div>
+            <div class="category-item" ondragover="allowdrop(event)" ondrop="drop(event,this)"  id="dep5">dep5</div>
+        </div>
+    </div>
+    <script>
+        function allowdrop(ev)
+        {
+            ev.preventDefault();
+        }
+        function drop(ev,el)
+        {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var move = document.getElementById(data);//send the mail from server to the depertment.
+            var newnode = move.cloneNode(false);//create new node to replace the removed node but only create when there is something to display by asking to the server.
+            move.removeAttribute("ondragstart");//remove dragable property as well as ondragstart property.
+            move.removeAttribute("draggable");
+            el.appendChild(move);//move the frame into dep. here send the mail to the dep.
+            document.querySelector(".content > .content-item:nth-last-of-type(1)").setAttribute("ondragstart","drag(event)");
+            var content = document.getElementsByClassName("content")[0];
+            content.insertBefore(newnode,content.firstChild);//append only if required.
+        }
+        function drag(ev)
+        {
+            ev.dataTransfer.setData("text",ev.target.id);
+            // console.log(ev.target.id);
+        }
+    </script>
+</body>
+</html>

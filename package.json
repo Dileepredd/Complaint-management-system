@@ -1,0 +1,36 @@
+{
+  "name": "complaint-management-system-iittp",
+  "version": "1.0.0",
+  "description": "this project is complaint management system for Indian Institute of technology, tirupati.project is mentored by prof. kalidas. this project is a term project under the course  Data Base Management Systems.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "complaint",
+    "management",
+    "system",
+    "IITTP",
+    "indian",
+    "institue",
+    "of",
+    "technology",
+    "tirupati."
+  ],
+  "author": "K. Dileep Reddy (cs17b034,IITTP)",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "fs": "0.0.1-security",
+    "fs-extra": "^9.0.0",
+    "google-form": "^1.0.2",
+    "google-spreadsheet": "^3.0.11",
+    "google-spreadsheets": "^2.0.0",
+    "googleapis": "^49.0.0",
+    "mongoose": "^5.9.10",
+    "nodemailer": "^6.4.6"
+  }
+}
