@@ -31,8 +31,8 @@ async function sendmailstodepartment(){
                     port: 465,
                     secure: true,
                     auth : {
-                        user : "softwarelab2253@gmail.com",
-                        pass : "Bg8Yb9zGYyA"
+                        user : "",
+                        pass : ""
                     }
                 });
                 require('ejs').renderFile("./views/complaint.ejs",function(err,html){
