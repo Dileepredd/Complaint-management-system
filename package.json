@@ -31,6 +31,6 @@
     "google-spreadsheets": "^2.0.0",
     "googleapis": "^49.0.0",
     "mongoose": "^5.9.10",
-    "nodemailer": "^6.4.6"
+    "nodemailer": "^6.4.16"
   }
 }
